@@ -5,7 +5,6 @@ import utils.db.annotation.ConfigFilePath;
 import utils.db.annotation.apt.ConfigFilePathAPT;
 import utils.db.annotation.bean.ConfigConnectionParameters;
 import utils.db.pool.ConnectionPoolManager;
-
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,29 +16,29 @@ import java.util.List;
  * @projectName: scond_stage
  * @package: utils.db.pool.impl
  * @className: ConnectionPoolManagerImpl
- * @author: ����ΰ
- * @description: ���ݿ����ӳظ��ӿ�ʵ����
+ * @author: 胡代伟
+ * @description: 数据库连接池父接口实现类
  * @date: 2023/11/10 16:18
  * @version: 1.0
  */
 public class ConnectionPoolManagerImpl implements ConnectionPoolManager {
     private static final int CONN_COUNT = 5;
-    //�������ӵļ���
+    //创建连接的集合
     public static final List<Connection> connections;
 
-    //��ʼ�����ݿ����ӳ�
+    //初始化数据库连接池
     static {
-        //ʹ�ð�ȫ���ϲŴ洢����
+        //使用安全集合才存储连接
         connections = Collections.synchronizedList(new LinkedList<>());
 
         String path=null;
-        // ��ȡ��ǰ�������Ǹ����б����ã����ص���ȫ����
+        // 获取当前方法在那个类中被调用，返回的是全类名
         String className = new Throwable().getStackTrace()[1].getClassName();
         Class<?> invokeClass=null;
         try {
             invokeClass = Class.forName(className);
             ConfigFilePath annotationClass = invokeClass.getAnnotation(ConfigFilePath.class);
-            //�����ע�⣬��ȡ·��
+            //如果有注解，获取路径
             if (annotationClass != null) {
                 path = annotationClass.value();
             } else {
@@ -52,29 +51,29 @@ public class ConnectionPoolManagerImpl implements ConnectionPoolManager {
             }
 
             if (path == null) {
-                throw new RuntimeException("�����ݿ����Ӳ���");
+                throw new RuntimeException("无数据库连接参数");
             }
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            //��ʼ��Connection����
+            //初始化Connection对象
             for (int i = 0; i < CONN_COUNT; i++) {
                 ConfigConnectionParameters connectionParameters = ConfigFilePathAPT.getPropertiesConfig(path);
 
                 Class.forName(connectionParameters.getDriver());
                 Connection connection = DriverManager.getConnection(connectionParameters.getUrl(), connectionParameters.getUsername(), connectionParameters.getPassword());
                 if (connection==null){
-                    throw new RuntimeException("���ݿ�����ʧ��");
+                    throw new RuntimeException("数据库连接失败");
                 }
-                System.out.println("���ݿ����ӳɹ�");
+                System.out.println("数据库连接成功");
                 connections.add(connection);
             }
-            System.out.println("���ݿ����ӳس�ʼ�����");
+            System.out.println("数据库连接池初始化完成");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("��ʼ��ʧ��");
+            System.out.println("初始化失败");
         }
     }
 
@@ -82,9 +81,9 @@ public class ConnectionPoolManagerImpl implements ConnectionPoolManager {
     public Connection getConnectionFromPool() {
         synchronized (connections) {
             if (connections.size() > 0) {
-                //����һ��,�ǽ��ĸ�����ȡ��
+                //测试一下,是将哪个链接取出
                 Connection connection = connections.remove(0);
-                System.out.println("ʹ����Connection:"+connection.toString());
+                System.out.println("使用了Connection:"+connection.toString());
                 return connection;
             }
         }
@@ -93,8 +92,8 @@ public class ConnectionPoolManagerImpl implements ConnectionPoolManager {
 
     @Override
     public void backConnectionToPool(Connection connection) {
-        //����һ��,�ǽ��ĸ����ӷ��������ݿ�
-        System.out.println("�黹��Connection:"+connection.toString());
+        //测试一下,是将哪个链接返回了数据库
+        System.out.println("归还了Connection:"+connection.toString());
         connections.add(connection);
     }
 
@@ -103,7 +102,7 @@ public class ConnectionPoolManagerImpl implements ConnectionPoolManager {
         for (int i = 0; i < CONN_COUNT; i++) {
             Connection connection = connections.remove(0);
             ConnectionManager.closeConnection(connection,null,null);
-            System.out.println("�ر���Connection:"+connection.toString());
+            System.out.println("关闭了Connection:"+connection.toString());
 
         }
     }
