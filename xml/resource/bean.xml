@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--引入dtd文件，约束这个xml-->
+<!DOCTYPE beans SYSTEM "bean.dtd">
+<beans>
+    <bean class="bean.User">
+        <property name="name" value="qq"/>
+        <property name="age" value="17"/>
+    </bean>
+    <bean class="bean.User">
+        <property name="name" value="hu"/>
+        <property name="age" value="18"/>
+    </bean>
+</beans>

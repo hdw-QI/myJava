@@ -1,0 +1,6 @@
+<!ELEMENT beans (bean+)>  <!-- 根元素 beans,并且这个是列表的 -->
+<!ELEMENT bean (property+)>
+<!ELEMENT property (#PCDATA)>
+<!ATTLIST bean class CDATA #REQUIRED>
+<!ATTLIST property name CDATA #REQUIRED>
+<!ATTLIST property value CDATA #REQUIRED>
