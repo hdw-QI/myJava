@@ -1,4 +1,4 @@
-package employee;
+package employee.controller;
 
 import employee.bean.Employee;
 import employee.dao.EmployeeDao;
@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * @projectName: git
  * @package: PACKAGE_NAME
- * @className: employee.QueryEmployee
+ * @className: employee.controller.QueryEmployee
  * @author: 胡代伟
  * @description: 查询员工
  * @date: 2023/11/24 15:16
