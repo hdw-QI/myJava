@@ -1,5 +1,9 @@
 package register.controller;
 
+import register.bean.ServletUser;
+import register.service.ServletUserService;
+import register.service.impl.ServletUserServiceImpl;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,11 +23,21 @@ import java.io.IOException;
  */
 @WebServlet("/register")
 public class Register extends HttpServlet {
+    ServletUserService servletUserService = new ServletUserServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        req.setAttribute("username",username);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("registerSuccess.jsp");
-        requestDispatcher.forward(req,resp);
+        String password = req.getParameter("password");
+        String email = req.getParameter("email");
+        ServletUser servletUser = new ServletUser();
+        servletUser.setUsername(username);
+        servletUser.setPassword(password);
+        servletUser.setEmail(email);
+        boolean register = servletUserService.register(servletUser);
+        if (register){
+            req.setAttribute("username",username);
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("registerSuccess.jsp");
+            requestDispatcher.forward(req,resp);
+        }
     }
 }
