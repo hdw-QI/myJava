@@ -23,6 +23,14 @@ public class Logout extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        用cookie方式的退出
+//        Cookie[] cookies = req.getCookies();
+//        for (Cookie cookie : cookies) {
+//            if (cookie.getName().equals("account")){
+//                cookie.setMaxAge(0);
+//                resp.getWriter().write("已退出");
+//            }
+//        }
         req.getSession().invalidate();
         resp.sendRedirect("ucenter.jsp");
 

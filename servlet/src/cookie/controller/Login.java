@@ -32,9 +32,11 @@ public class Login extends HttpServlet {
         String password = req.getParameter("password");
         boolean login = servletUserService.login(username, password);
         if (login){
+//            用cookie的方式
 //            Cookie cookie = new Cookie("username",username);
 //            cookie.setPath("/");
 //            resp.addCookie(cookie);
+//            req.setAttribute("account",cookie);
             HttpSession session = req.getSession();//从请求对象中获得与之对应的session
             session.setAttribute("account", username);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("ucenter.jsp");

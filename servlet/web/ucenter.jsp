@@ -19,5 +19,13 @@
 <c:if test="${sessionScope.get('account')==null}">
     <a href="login.jsp">请先登录</a>
 </c:if>
+<%--用cookie的方式--%>
+<%--<c:if test="${requestScope.get('account')!=null}">--%>
+<%--    登陆成功！用户名为：${requestScope.get('account').value}--%>
+<%--    <a href="logout">注销</a>--%>
+<%--</c:if>--%>
+<%--<c:if test="${requestScope.get('account')==null}">--%>
+<%--    <a href="login.jsp">请先登录</a>--%>
+<%--</c:if>--%>
 </body>
 </html>
