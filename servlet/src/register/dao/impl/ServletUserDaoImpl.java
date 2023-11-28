@@ -30,6 +30,8 @@ public class ServletUserDaoImpl implements ServletUserDao {
     public int insertServletUser(ServletUser servletUser) {
         Connection connectionFromPool = connectionPoolManager.getConnectionFromPool();
         String sql="insert into servlet_user values(?,?,?,?)";
-        return executionDML.insert(connectionFromPool, sql, servletUser.getId(), servletUser.getUsername(), servletUser.getPassword(), servletUser.getEmail());
+        int insert = executionDML.insert(connectionFromPool, sql, servletUser.getId(), servletUser.getUsername(), servletUser.getPassword(), servletUser.getEmail());
+        connectionPoolManager.backConnectionToPool(connectionFromPool);
+        return insert;
     }
 }
