@@ -14,6 +14,7 @@
 <body>
 <c:if test="${sessionScope.get('account')!=null}">
     登陆成功！用户名为：${sessionScope.get('account')}
+    <a href="logout">注销</a>
 </c:if>
 <c:if test="${sessionScope.get('account')==null}">
     <a href="login.jsp">请先登录</a>
