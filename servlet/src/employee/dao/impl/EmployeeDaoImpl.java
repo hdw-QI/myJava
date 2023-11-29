@@ -1,6 +1,7 @@
-package employee.dao;
+package employee.dao.impl;
 
 import employee.bean.Employee;
+import employee.dao.EmployeeDao;
 import utils.db.annotation.ConfigFilePath;
 import utils.db.execution.ExecutionDML;
 import utils.db.execution.ExecutionDQL;
@@ -21,7 +22,7 @@ import java.sql.Connection;
  * @version: 1.0
  */
 @ConfigFilePath("db.properties")
-public class EmployeeDaoImpl implements EmployeeDao{
+public class EmployeeDaoImpl implements EmployeeDao {
     private static final ConnectionPoolManager connectionPoolManager=new ConnectionPoolManagerImpl();
     private static final ExecutionDQL<Employee> executionDQL= new ExecutionDQLImpl<>();
     private static final ExecutionDML executionDML=new ExecutionDMLImpl();

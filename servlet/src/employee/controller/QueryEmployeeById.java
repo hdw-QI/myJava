@@ -2,7 +2,9 @@ package employee.controller;
 
 import employee.bean.Employee;
 import employee.dao.EmployeeDao;
-import employee.dao.EmployeeDaoImpl;
+import employee.dao.impl.EmployeeDaoImpl;
+import employee.service.EmployeeService;
+import employee.service.impl.EmployeeServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +23,12 @@ import java.io.IOException;
  * @version: 1.0
  */
 @WebServlet("/queryEmpById")
-public class QueryEmployee extends HttpServlet {
+public class QueryEmployeeById extends HttpServlet {
+    EmployeeService employeeService = new EmployeeServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        EmployeeDao employeeDao = new EmployeeDaoImpl();
-        Employee empById = employeeDao.getEmpById(Integer.parseInt(id));
+        Employee empById = employeeService.getEmployeeById(Integer.parseInt(id));
         resp.setContentType("text/html;charset=utf-8");
         resp.getWriter().write(empById.toString());
     }
