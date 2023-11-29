@@ -7,6 +7,8 @@ import utils.db.execution.ExecutionDML;
 import utils.db.execution.ExecutionDQL;
 import utils.db.execution.impl.ExecutionDMLImpl;
 import utils.db.execution.impl.ExecutionDQLImpl;
+import utils.db.model.PageParams;
+import utils.db.model.PageResult;
 import utils.db.pool.ConnectionPoolManager;
 import utils.db.pool.impl.ConnectionPoolManagerImpl;
 
@@ -33,6 +35,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Employee employee = executionDQL.queryBean(connectionFromPool, sql, Employee.class, id);
         connectionPoolManager.backConnectionToPool(connectionFromPool);
         return employee;
+    }
+
+    @Override
+    public PageResult<Employee> getEmpListByPage(PageParams pageParams) {
+        Connection connectionFromPool = connectionPoolManager.getConnectionFromPool();
+        String sql="select * from employee limit ?,?";
+        PageResult<Employee> employeePageResult = executionDQL.queryPageBean(connectionFromPool, Employee.class, sql, pageParams);
+        connectionPoolManager.backConnectionToPool(connectionFromPool);
+        return employeePageResult;
     }
 
 }

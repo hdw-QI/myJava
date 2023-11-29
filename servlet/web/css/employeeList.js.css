@@ -1,0 +1,17 @@
+#test{
+    margin-top: 100px;
+}
+/*取消横向滚动条：*/
+/*首先，给表格容器元素设置一个固定的宽度*/
+.layui-table-view {
+    width: 100%;
+}
+/*给表格主体元素 .layui-table-body 设置 overflow-x 属性为 hidden，表示隐藏表格内容超出容器宽度的部分*/
+.layui-table-body {
+    overflow-x: hidden;
+}
+
+/*layui分页样式设置居中*/
+.layui-table-page {
+    text-align: center;
+}

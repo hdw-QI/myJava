@@ -4,6 +4,8 @@ import employee.bean.Employee;
 import employee.dao.EmployeeDao;
 import employee.dao.impl.EmployeeDaoImpl;
 import employee.service.EmployeeService;
+import utils.db.model.PageParams;
+import utils.db.model.PageResult;
 
 /**
  * @projectName: git
@@ -19,5 +21,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee getEmployeeById(Integer id) {
         return employeeDao.getEmpById(id);
+    }
+
+    @Override
+    public PageResult<Employee> getPageEmployee(PageParams pageParams) {
+        return employeeDao.getEmpListByPage(pageParams);
     }
 }

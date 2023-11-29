@@ -1,6 +1,8 @@
 package employee.dao;
 
 import employee.bean.Employee;
+import utils.db.model.PageParams;
+import utils.db.model.PageResult;
 
 /**
  * @projectName: git
@@ -20,4 +22,12 @@ public interface EmployeeDao {
      * @date 2023/11/24 18:38
      */
     public Employee getEmpById(Integer id);
+    /**
+     * @param pageParams:
+     * @return PageResult<Employee>
+     * @author 胡代伟
+     * @description 分页获取员工列表
+     * @date 2023/11/29 18:39
+     */
+    public PageResult<Employee> getEmpListByPage(PageParams pageParams);
 }
