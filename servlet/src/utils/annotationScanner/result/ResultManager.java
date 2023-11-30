@@ -17,10 +17,27 @@ public interface ResultManager<T> {
      * @param annotationClass: 要扫描的注解class
      * @return List<String>
      * @author 胡代伟
-     * @description 获取包含指定注解的全包名(用于不是多模块下)
+     * @description 获取包含指定注解的全包名
      * @date 2023/11/23 18:27
      */
     public List<String> getPackageJavaFileList(String packageName,Class<T> annotationClass);
+    /**
+     * @param packageName: 全包名
+     * @param annotationClass: 要扫描的注解class
+     * @return List<String>
+     * @author 胡代伟
+     * @description 在多模块项目中获取包含指定注解的全包名
+     * @date 2023/11/28 16:00
+     */
+    public List<String> getPackageJavaFileListInManyModel(String packageName,Class<T> annotationClass);
 
-    public List<String> getPackageJavaFileListManyModel(String packageName,Class<T> annotationClass);
+    /**
+     * @param packageName:
+     * @param annotationClass:
+     * @return List<String>
+     * @author 胡代伟
+     * @description 通过class文件获取包含指定注解的全包名
+     * @date 2023/11/30 18:43
+     */
+    public List<String> getPackageClassFileList(String packageName,Class<T> annotationClass);
 }

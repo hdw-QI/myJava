@@ -18,27 +18,40 @@ import java.util.List;
  */
 public class ScannerManager<T>{
     ScannerApt scannerApt = new ScannerAptImpl();
-    ResultManager<T> tResultManager = new ResultManagerImpl<>();
+    // 获取是哪个类在调用这个方法
     String className = new Exception().getStackTrace()[1].getClassName();
     String packageName = scannerApt.getPackageName(className);
+    ResultManager<T> tResultManager = new ResultManagerImpl<>();
     /**
      * @param annotationClass:
      * @return List<String>
      * @author 胡代伟
-     * @description 工具类所在的模块就是父模块的扫描
-     * @date 2023/11/23 20:36
+     * @description 单模块项目中
+     * @date 2023/11/30 18:48
      */
-    public  List<String> scanner(Class<T> annotationClass) {
+    public  List<String> scannerInOneModel(Class<T> annotationClass) {
         return tResultManager.getPackageJavaFileList(packageName, annotationClass);
     }
+
     /**
      * @param annotationClass:
      * @return List<String>
      * @author 胡代伟
-     * @description 工具类所在的模块是父模块下的其中一个模块的扫描
-     * @date 2023/11/23 20:36
+     * @description 多模块项目在
+     * @date 2023/11/30 18:49
      */
     public  List<String> scannerInManyModel(Class<T> annotationClass) {
-        return tResultManager.getPackageJavaFileListManyModel(packageName, annotationClass);
+        return tResultManager.getPackageJavaFileListInManyModel(packageName, annotationClass);
+    }
+
+    /**
+     * @param annotationClass:
+     * @return List<String>
+     * @author 胡代伟
+     * @description 万能
+     * @date 2023/11/30 18:49
+     */
+    public  List<String> scanner(Class<T> annotationClass) {
+        return tResultManager.getPackageClassFileList(packageName, annotationClass);
     }
 }
