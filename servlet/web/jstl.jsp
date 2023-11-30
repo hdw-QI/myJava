@@ -36,9 +36,10 @@ ${name}
     </c:when>
 </c:choose>
 
-<c:forEach begin="1" end="10" var="i" step="2">
+<c:forEach begin="1" end="10" var="i" step="2" varStatus="s">
     <h1>
-        ${i}
+        值：${i}
+        循环次数：${s.count}
     </h1>
 </c:forEach>
 
