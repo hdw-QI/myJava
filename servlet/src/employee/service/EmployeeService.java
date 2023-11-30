@@ -23,5 +23,30 @@ public interface EmployeeService {
      */
     public Employee getEmployeeById(Integer id);
 
+    /**
+     * @param pageParams:
+     * @return PageResult<Employee>
+     * @author 胡代伟
+     * @description 分页查询员工
+     * @date 2023/11/30 19:16
+     */
     public PageResult<Employee> getPageEmployee(PageParams pageParams);
+
+    /**
+     * @param employee:
+     * @return boolean
+     * @author 胡代伟
+     * @description 添加员工
+     * @date 2023/11/30 19:17
+     */
+    public boolean addEmployee(Employee employee);
+
+    /**
+     * @param id:
+     * @return boolean
+     * @author 胡代伟
+     * @description 根据id删除员工
+     * @date 2023/11/30 19:17
+     */
+    public boolean delEmployee(Integer id);
 }

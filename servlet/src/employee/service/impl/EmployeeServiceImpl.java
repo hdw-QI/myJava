@@ -27,4 +27,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult<Employee> getPageEmployee(PageParams pageParams) {
         return employeeDao.getEmpListByPage(pageParams);
     }
+
+    @Override
+    public boolean addEmployee(Employee employee) {
+        int i = employeeDao.addEmp(employee);
+        return i>0;
+    }
+
+    @Override
+    public boolean delEmployee(Integer id) {
+        int i = employeeDao.delEmpById(id);
+        return i>0;
+    }
 }

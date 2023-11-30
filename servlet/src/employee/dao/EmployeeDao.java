@@ -30,4 +30,22 @@ public interface EmployeeDao {
      * @date 2023/11/29 18:39
      */
     public PageResult<Employee> getEmpListByPage(PageParams pageParams);
+
+    /**
+     * @param employee:
+     * @return int
+     * @author 胡代伟
+     * @description 添加员工
+     * @date 2023/11/30 19:08
+     */
+    public int addEmp(Employee employee);
+
+    /**
+     * @param id:
+     * @return int
+     * @author 胡代伟
+     * @description 根据id删除员工
+     * @date 2023/11/30 19:14
+     */
+    public int delEmpById(Integer id);
 }

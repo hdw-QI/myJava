@@ -17,4 +17,5 @@
 </body>
 <script src="./js/layui.js"></script>
 <script src="./js/employeeList.js"></script>
+<script src="./js/jquery-3.5.1.min.js"></script>
 </html>

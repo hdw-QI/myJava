@@ -1,5 +1,5 @@
 layui.use('table', function () {
-    var table = layui.table
+    const table = layui.table;
 
     // 第一个实例
     table.render({
@@ -34,17 +34,22 @@ layui.use('table', function () {
             ],
         ],
     })
-    // 点击表格头部，内部一些 dom上绑定了lay-event=""属性的一些节点所操作的事件
+// 点击表格头部，内部一些 dom上绑定了lay-event=""属性的一些节点所操作的事件
 // tool中的test其实就是表格table节点的 lay-filter="test"这个属性值
     table.on('tool(test)',function(obj){
-// 在里面我们可以根据lay-event的值去进行相应的判断
+        // 在里面我们可以根据lay-event的值去进行相应的判断
+        let layEvent=obj.event
+        // 数据的id
+        console.log(obj.data.id)
+        let id=obj.data.id
         if (layEvent === 'del') {
-            console.log(123)
             //删除
             layer.confirm('真的删除行么', function (index) {
                 obj.del() //删除对应行（tr）的DOM结构，并更新缓存
                 layer.close(index)
                 //向服务端发送删除指令
+                //发送请求删除数据库中的数据
+                window.location.href=`/uf/operationEmployee/delete?id=${id}`
             })
         } else if (layEvent === 'edit') {
             // 编辑

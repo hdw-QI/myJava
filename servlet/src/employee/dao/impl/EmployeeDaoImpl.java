@@ -46,4 +46,22 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employeePageResult;
     }
 
+    @Override
+    public int addEmp(Employee employee) {
+        Connection connectionFromPool = connectionPoolManager.getConnectionFromPool();
+        String sql="insert into employee values(?,?,?,?,?,?,?,?)";
+        int insert = executionDML.insert(connectionFromPool, sql, employee.getId(), employee.getName(), employee.getLocation(), employee.getIsMale(), employee.getJoinDate(), employee.getSalary(), employee.getDeptId(), employee.getPhoto());
+        connectionPoolManager.backConnectionToPool(connectionFromPool);
+        return insert;
+    }
+
+    @Override
+    public int delEmpById(Integer id) {
+        Connection connectionFromPool = connectionPoolManager.getConnectionFromPool();
+        String sql="delete from employee where id=?";
+        int delete = executionDML.delete(connectionFromPool, sql, id);
+        connectionPoolManager.backConnectionToPool(connectionFromPool);
+        return delete;
+    }
+
 }
