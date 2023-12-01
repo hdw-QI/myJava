@@ -119,9 +119,11 @@ public class UrlFilter implements Filter {
             try {
                 Class<?> aClass = Class.forName(pack);
                 WebServlet annotation = aClass.getAnnotation(WebServlet.class);
-                String s = annotation.value()[0];
-                if (s.equals(webServletValue)){
-                    return pack;
+                String[] value = annotation.value();
+                for (String s : value) {
+                    if (s.equals(webServletValue)){
+                        return pack;
+                    }
                 }
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
