@@ -14,3 +14,31 @@ UrlFilter使用：
 @Scanner("employee.controller")扫描该包下的WebServlet注解，http://localhost:8080/上下文路径/要调用那个类上的WebServlet的value值/方法名
 
 第一种方式：定义一个baseServlet，重写service方法，来判断执行那个方法，其他要使用这种功能的servlet继承这个baseServlet。
+
+扩展：使用自定义注解对应servlet下面的方法，访问的路径中的方法名就为自定义注解的值。没有使用自定义注解则默认为方法名与访问的路径中的方法名相同(使用抛方法没找到是使用注解APT)
+@UrlMapping：用于方法上，值为访问的路径中的方法名
+使用示例
+
+1、过滤器
+```java
+@WebServlet("/uf/operationEmployee")
+public class OperationEmployee extends HttpServlet {
+    @UrlMapping("updateEmp")
+    public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+        response.getWriter().write("哈哈");
+    }
+}
+```
+
+2、baseServlet
+```java
+@WebServlet("/test/*")
+public class TestBaseServlet extends BaseServlet {
+    @UrlMapping("testDelete")
+    public void delete(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.setContentType("text/html;charset=UTF-8");
+        httpServletResponse.getWriter().write("删除");
+    }
+}
+```

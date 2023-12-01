@@ -1,6 +1,7 @@
 package employee.controller;
 
 import imitationSpringMVC.BaseServlet;
+import imitationSpringMVC.annotation.UrlMapping;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import java.io.IOException;
  */
 @WebServlet("/test/*")
 public class TestBaseServlet extends BaseServlet {
+    @UrlMapping("testDelete")
     public void delete(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.setContentType("text/html;charset=UTF-8");
         httpServletResponse.getWriter().write("删除");

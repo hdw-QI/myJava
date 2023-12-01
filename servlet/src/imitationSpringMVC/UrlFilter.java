@@ -1,5 +1,6 @@
 package imitationSpringMVC;
 
+import imitationSpringMVC.annotation.apt.UrlMappingAPT;
 import utils.annotationScanner.ScannerManager;
 import utils.annotationScanner.annotation.Scanner;
 
@@ -121,17 +122,19 @@ public class UrlFilter implements Filter {
         String webServletValue = getWebServletValue(servletPath);
         List<String> strings = scannerManager.scanner(WebServlet.class);
         String servletPackage = getServletPackage(strings, webServletValue);
+        Class<?> aClass = null;
+        Object method=null;
         try {
-            Class<?> aClass = Class.forName(servletPackage);
+            aClass = Class.forName(servletPackage);
             Constructor<?> declaredConstructor = aClass.getDeclaredConstructor();
-            Object method = declaredConstructor.newInstance();
+            method = declaredConstructor.newInstance();
             Method declaredMethod = aClass.getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             declaredMethod.setAccessible(true);
             declaredMethod.invoke(method,httpServletRequest,httpServletResponse);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            UrlMappingAPT.isMapping(aClass,method,methodName,httpServletRequest,httpServletResponse);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {

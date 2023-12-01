@@ -3,6 +3,7 @@ package employee.controller;
 import employee.bean.Employee;
 import employee.service.EmployeeService;
 import employee.service.impl.EmployeeServiceImpl;
+import imitationSpringMVC.annotation.UrlMapping;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -93,6 +94,7 @@ public class OperationEmployee extends HttpServlet {
         }
 
     }
+    @UrlMapping("updateEmp")
     public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         response.getWriter().write("哈哈");

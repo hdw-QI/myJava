@@ -1,5 +1,7 @@
 package imitationSpringMVC;
 
+import imitationSpringMVC.annotation.apt.UrlMappingAPT;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,13 +58,14 @@ public class BaseServlet extends HttpServlet {
     }
     public void executeServletMethod(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,String servletPath){
         String methodName = getMethodName(servletPath);
+        Class<? extends BaseServlet> aClass= this.getClass();
         try {
-            Class<? extends BaseServlet> aClass = this.getClass();
             Method declaredMethod = aClass.getDeclaredMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             declaredMethod.setAccessible(true);
             declaredMethod.invoke(this,httpServletRequest,httpServletResponse);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            // 再看有没有用注解映射
+            UrlMappingAPT.isMapping(aClass,this,methodName,httpServletRequest,httpServletResponse);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
