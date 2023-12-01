@@ -1,6 +1,6 @@
 模仿springmvc 一个servlet可以接收多个相关（如一个userServlet,这个servlet可以做添加、删除等与user相关的操作）的请求。
 
-思路：通关访问的url入手，如http://localhost:8080/a/b/adduser?a=123,这个adduser就是要执行的方法。
+第一种方式：使用过滤器。思路：通关访问的url入手，如http://localhost:8080/a/b/adduser?a=123,这个adduser就是要执行的方法。
 若有web上下文，则a为上下文路径，b为servlet访问路径
 
 1、定义拦截器拦截所有请求，获取url。
@@ -12,3 +12,5 @@ UrlFilter:拦截指定url
 
 UrlFilter使用：
 @Scanner("employee.controller")扫描该包下的WebServlet注解，http://localhost:8080/上下文路径/要调用那个类上的WebServlet的value值/方法名
+
+第一种方式：定义一个baseServlet，重写service方法，来判断执行那个方法，其他要使用这种功能的servlet继承这个baseServlet。

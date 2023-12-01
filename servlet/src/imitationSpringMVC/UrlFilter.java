@@ -32,6 +32,7 @@ public class UrlFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         // 先要将 ServletRequest对象强转成HttpRequestServlet。HttpServletRequest extends ServletRequest
         HttpServletRequest httpServletRequest=(HttpServletRequest) servletRequest;
+        // 获取的是url中符合webServlet中value的值
         String servletPath = httpServletRequest.getServletPath();
         System.out.println(servletPath);
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
