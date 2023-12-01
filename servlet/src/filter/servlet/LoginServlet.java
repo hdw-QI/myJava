@@ -48,7 +48,15 @@ public class LoginServlet extends BaseServlet {
                 session.setAttribute("account", name);
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("../ucenter.jsp");
 //                以下方式也是可以的，意思是项目根路径下的ucenter.jsp，这种相当于绝对路径的用法
-//                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/ucenter.jsp");
+//                String contextPath = req.getContextPath(); //项目的根路径
+//                String url;
+//                if (contextPath!=null){
+//                    url=contextPath+"/ucenter.jsp";
+//                }else {
+//                    url="/ucenter.jsp";
+//                }
+//                RequestDispatcher requestDispatcher = req.getRequestDispatcher(url);
+
                 try {
                     requestDispatcher.forward(req,resp);
                 } catch (ServletException e) {
