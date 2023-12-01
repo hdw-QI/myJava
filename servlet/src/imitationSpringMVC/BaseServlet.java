@@ -31,7 +31,6 @@ public class BaseServlet extends HttpServlet {
 //        响应类型不在这里进行统一处理，不同的方法有不同的响应内容
 //        resp.setContentType("text/html");
 
-
         // http://localhost:8080/test/delete 获取/test/delete
         String servletPath = req.getRequestURI();
         executeServletMethod(req,resp,servletPath);

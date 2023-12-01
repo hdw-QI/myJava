@@ -69,6 +69,27 @@ public class UrlFilter implements Filter {
     }
 
     /**
+     * @param servletPath:
+     * @return String
+     * @author 胡代伟
+     * @description 获取访问路径的后缀名
+     * @date 2023/12/1 13:02
+     */
+    public String getSuffix(String servletPath){
+        int begin = servletPath.lastIndexOf("/");
+        String substring;
+        if (servletPath.contains(".")){
+            int end = servletPath.lastIndexOf(".");
+            substring = servletPath.substring(end+1);
+        }else {
+            substring = null;
+        }
+
+        System.out.println("getSuffix:"+substring);
+        return substring;
+    }
+
+    /**
      * @param servletPath: httpServletRequest.getServletPath()的值
      * @return String
      * @author 胡代伟
