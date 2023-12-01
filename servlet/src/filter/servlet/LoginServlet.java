@@ -47,6 +47,8 @@ public class LoginServlet extends BaseServlet {
                 HttpSession session = req.getSession();//从请求对象中获得与之对应的session
                 session.setAttribute("account", name);
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("../ucenter.jsp");
+//                以下方式也是可以的，意思是项目根路径下的ucenter.jsp，这种相当于绝对路径的用法
+//                RequestDispatcher requestDispatcher = req.getRequestDispatcher("/ucenter.jsp");
                 try {
                     requestDispatcher.forward(req,resp);
                 } catch (ServletException e) {
