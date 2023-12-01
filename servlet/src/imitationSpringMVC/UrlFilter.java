@@ -77,6 +77,14 @@ public class UrlFilter implements Filter {
         return substring;
     }
 
+    /**
+     * @param packages: 所有指定包下包含@WebServlet的类的全包名
+     * @param webServletValue:客户端访问servlet的路径。@WebServlet中的值
+     * @return String
+     * @author 胡代伟
+     * @description 获取客户端要访问的servlet的全类名
+     * @date 2023/12/1 9:50
+     */
     public String getServletPackage(List<String> packages,String webServletValue) {
         for (String pack : packages) {
             try {
@@ -92,7 +100,15 @@ public class UrlFilter implements Filter {
         }
         return null;
     }
-
+    /**
+     * @param httpServletRequest:
+     * @param httpServletResponse:
+     * @param servletPath:
+     * @return void
+     * @author 胡代伟
+     * @description 执行servlet中的方法
+     * @date 2023/12/1 9:53
+     */
     public void executeServletMethod(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,String servletPath){
         String methodName = getMethodName(servletPath);
         String webServletValue = getWebServletValue(servletPath);
