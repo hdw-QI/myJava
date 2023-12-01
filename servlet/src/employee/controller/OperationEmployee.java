@@ -94,6 +94,7 @@ public class OperationEmployee extends HttpServlet {
 
     }
     public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+        response.setContentType("text/html");
+        response.getWriter().write("哈哈");
     }
 }

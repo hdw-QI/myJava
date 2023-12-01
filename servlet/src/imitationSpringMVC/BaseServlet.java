@@ -23,6 +23,13 @@ import java.util.List;
 public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 可以在这样统一编码格式
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+//        响应类型不在这里进行统一处理，不同的方法有不同的响应内容
+//        resp.setContentType("text/html");
+
+
         // http://localhost:8080/test/delete 获取/test/delete
         String servletPath = req.getRequestURI();
         executeServletMethod(req,resp,servletPath);

@@ -32,10 +32,16 @@ public class UrlFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         // 先要将 ServletRequest对象强转成HttpRequestServlet。HttpServletRequest extends ServletRequest
         HttpServletRequest httpServletRequest=(HttpServletRequest) servletRequest;
+        HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
+        // 可以在这样统一编码格式
+        httpServletRequest.setCharacterEncoding("UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+//        响应类型不在这里进行统一处理，不同的方法有不同的响应内容
+//        httpServletResponse.setContentType("text/html");
+
         // 获取的是url中符合webServlet中value的值
         String servletPath = httpServletRequest.getServletPath();
         System.out.println(servletPath);
-        HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
         executeServletMethod(httpServletRequest,httpServletResponse,servletPath);
 //        filterChain.doFilter(servletRequest,servletResponse);
     }
