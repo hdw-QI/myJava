@@ -55,9 +55,11 @@ layui.use('table', function () {
                 // 2、异步
                 $.get(`/uf/operationEmployee/delete?id=${id}`,(res)=>{
                     if (res==='true'){
-                        layer.alert('删除成功')
+                        // layer.alert('删除成功')
+                        layer.msg('删除成功')
                     }else {
-                        layer.alert('删除失败')
+                        // layer.alert('删除失败')
+                        layer.msg('删除失败')
                     }
                 })
             })
