@@ -1,4 +1,4 @@
-package employee.bean;
+package employee.bean.po;
 
 import java.util.Date;
 

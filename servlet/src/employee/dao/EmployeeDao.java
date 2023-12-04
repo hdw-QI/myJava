@@ -1,6 +1,7 @@
 package employee.dao;
 
-import employee.bean.Employee;
+import employee.bean.dto.EmployeeListDto;
+import employee.bean.po.Employee;
 import utils.db.model.PageParams;
 import utils.db.model.PageResult;
 
@@ -48,4 +49,13 @@ public interface EmployeeDao {
      * @date 2023/11/30 19:14
      */
     public int delEmpById(Integer id);
+
+    /**
+     * @param pageParams:
+     * @return PageResult<EmployeeListDto>
+     * @author 胡代伟
+     * @description 多表分页查询员工列表
+     * @date 2023/12/4 17:37
+     */
+    public PageResult<EmployeeListDto> getEmpListByPageInManyTable(PageParams pageParams);
 }

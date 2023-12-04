@@ -1,6 +1,6 @@
 package employee.controller;
 
-import employee.bean.Employee;
+import employee.bean.po.Employee;
 import employee.service.EmployeeService;
 import employee.service.impl.EmployeeServiceImpl;
 import imitationSpringMVC.annotation.UrlMapping;

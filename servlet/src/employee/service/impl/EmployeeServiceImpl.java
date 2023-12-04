@@ -1,6 +1,7 @@
 package employee.service.impl;
 
-import employee.bean.Employee;
+import employee.bean.dto.EmployeeListDto;
+import employee.bean.po.Employee;
 import employee.dao.EmployeeDao;
 import employee.dao.impl.EmployeeDaoImpl;
 import employee.service.EmployeeService;
@@ -38,5 +39,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean delEmployee(Integer id) {
         int i = employeeDao.delEmpById(id);
         return i>0;
+    }
+
+    @Override
+    public PageResult<EmployeeListDto> getPageEmployeeInManyTable(PageParams pageParams) {
+        return employeeDao.getEmpListByPageInManyTable(pageParams);
     }
 }

@@ -1,4 +1,4 @@
-package employee.bean;
+package employee.bean.dto;
 
 import java.util.List;
 

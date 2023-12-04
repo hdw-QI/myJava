@@ -10,8 +10,9 @@ package employee.controller;
  */
 
 import com.alibaba.fastjson.JSON;
-import employee.bean.Employee;
-import employee.bean.LayUITableResponse;
+import employee.bean.dto.EmployeeListDto;
+import employee.bean.po.Employee;
+import employee.bean.dto.LayUITableResponse;
 import employee.service.EmployeeService;
 import employee.service.impl.EmployeeServiceImpl;
 import utils.db.model.PageParams;
@@ -30,7 +31,8 @@ public class QueryPageEmployeeList extends HttpServlet {
         String pageNo = request.getParameter("pageNo");
         String pageSize = request.getParameter("pageSize");
         PageParams pageParams = new PageParams(Long.parseLong(pageNo), Long.parseLong(pageSize));
-        PageResult<Employee> pageEmployee = employeeService.getPageEmployee(pageParams);
+//        PageResult<Employee> pageEmployee = employeeService.getPageEmployee(pageParams);
+        PageResult<EmployeeListDto> pageEmployee = employeeService.getPageEmployeeInManyTable(pageParams);
         response.setCharacterEncoding("UTF-8");
         // 设置响应的内容类型为"application/json"
         response.setContentType("application/json");
@@ -42,7 +44,7 @@ public class QueryPageEmployeeList extends HttpServlet {
 
         将对象转换为JSON字符串：
         String json=JSON.toJSONString(要转换的对象)*/
-        LayUITableResponse<Employee> employeeLayUITableResponse = new LayUITableResponse<>();
+        LayUITableResponse<EmployeeListDto> employeeLayUITableResponse = new LayUITableResponse<>();
         employeeLayUITableResponse.setCode(0);
         employeeLayUITableResponse.setCount(pageEmployee.getTotalCounts());
         employeeLayUITableResponse.setData(pageEmployee.getResult());

@@ -1,6 +1,7 @@
 package employee.dao.impl;
 
-import employee.bean.Employee;
+import employee.bean.dto.EmployeeListDto;
+import employee.bean.po.Employee;
 import employee.dao.EmployeeDao;
 import utils.db.annotation.ConfigFilePath;
 import utils.db.execution.ExecutionDML;
@@ -27,6 +28,7 @@ import java.sql.Connection;
 public class EmployeeDaoImpl implements EmployeeDao {
     private static final ConnectionPoolManager connectionPoolManager=new ConnectionPoolManagerImpl();
     private static final ExecutionDQL<Employee> executionDQL= new ExecutionDQLImpl<>();
+    private static final ExecutionDQL<EmployeeListDto> employeeListDtoExecutionDQL= new ExecutionDQLImpl<>();
     private static final ExecutionDML executionDML=new ExecutionDMLImpl();
     @Override
     public Employee getEmpById(Integer id) {
@@ -62,6 +64,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
         int delete = executionDML.delete(connectionFromPool, sql, id);
         connectionPoolManager.backConnectionToPool(connectionFromPool);
         return delete;
+    }
+
+    @Override
+    public PageResult<EmployeeListDto> getEmpListByPageInManyTable(PageParams pageParams) {
+        Connection connectionFromPool = connectionPoolManager.getConnectionFromPool();
+        String sql="SELECT e.id,e.NAME 'name' ,e.location ,CASE e.is_male WHEN 0 THEN '女' ELSE '男' END 'is_male',e.join_date ,e.salary ,d.name 'dept_name',c.name 'company_name',e.dept_id,e.photo " +
+                "FROM employee e " +
+                "LEFT JOIN department d ON e.dept_id=d.id " +
+                "LEFT JOIN company c ON d.companyId=c.id " +
+                "LIMIT ?,?";
+        PageResult<EmployeeListDto> employeePageResult = employeeListDtoExecutionDQL.queryPageBean(connectionFromPool, EmployeeListDto.class, sql, pageParams);
+        connectionPoolManager.backConnectionToPool(connectionFromPool);
+        return employeePageResult;
     }
 
 }

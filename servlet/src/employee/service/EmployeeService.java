@@ -1,6 +1,7 @@
 package employee.service;
 
-import employee.bean.Employee;
+import employee.bean.dto.EmployeeListDto;
+import employee.bean.po.Employee;
 import utils.db.model.PageParams;
 import utils.db.model.PageResult;
 
@@ -49,4 +50,13 @@ public interface EmployeeService {
      * @date 2023/11/30 19:17
      */
     public boolean delEmployee(Integer id);
+
+    /**
+     * @param pageParams:
+     * @return PageResult<EmployeeListDto>
+     * @author 胡代伟
+     * @description 多表分页查询员工列表
+     * @date 2023/12/4 17:40
+     */
+    public PageResult<EmployeeListDto> getPageEmployeeInManyTable(PageParams pageParams);
 }

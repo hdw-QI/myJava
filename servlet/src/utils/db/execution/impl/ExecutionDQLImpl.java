@@ -212,6 +212,9 @@ public class ExecutionDQLImpl<T> implements ExecutionDQL<T> {
 
     public long getTotal(Connection connection, String sql, Object... parameters){
         String limit = sql.split("limit")[0];
+        if (limit.equals(sql)){
+            limit = sql.split("LIMIT")[0];
+        }
         List<Map<String, Object>> maps = queryListMapFields(connection, limit, parameters);
         return maps.size();
     }

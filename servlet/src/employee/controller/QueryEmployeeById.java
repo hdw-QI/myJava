@@ -1,8 +1,6 @@
 package employee.controller;
 
-import employee.bean.Employee;
-import employee.dao.EmployeeDao;
-import employee.dao.impl.EmployeeDaoImpl;
+import employee.bean.po.Employee;
 import employee.service.EmployeeService;
 import employee.service.impl.EmployeeServiceImpl;
 

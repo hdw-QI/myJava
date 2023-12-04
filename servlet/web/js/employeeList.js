@@ -21,8 +21,9 @@ layui.use('table', function () {
                 { field: 'location', title: '住址' },
                 { field: 'joinDate', title: '入职日期' },
                 { field: 'salary', title: '薪资', sort: true },
-                { field: 'deptId', title: '部门ID', sort: true },
                 { field: 'photo', title: '头像' },
+                { field: 'deptName', title: '所属部门', sort: true },
+                { field: 'companyName', title: '所属公司' },
                 {
                     title: '操作',
                     sort: true,
