@@ -49,7 +49,17 @@ layui.use('table', function () {
                 layer.close(index)
                 //向服务端发送删除指令
                 //发送请求删除数据库中的数据
-                window.location.href=`/uf/operationEmployee/delete?id=${id}`
+
+                // 1、同步
+                // window.location.href=`/uf/operationEmployee/delete?id=${id}`
+                // 2、异步
+                $.get(`/uf/operationEmployee/delete?id=${id}`,(res)=>{
+                    if (res==='true'){
+                        layer.alert('删除成功')
+                    }else {
+                        layer.alert('删除失败')
+                    }
+                })
             })
         } else if (layEvent === 'edit') {
             // 编辑

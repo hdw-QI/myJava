@@ -85,7 +85,10 @@ public class OperationEmployee extends HttpServlet {
         boolean b = employeeService.delEmployee(Integer.parseInt(id));
         try {
             if (b) {
-                response.sendRedirect("../../employeeList.jsp");
+                // 1、同步
+//                response.sendRedirect("../../employeeList.jsp");
+                // 2、异步
+                response.getWriter().write("true");
             }else {
                 response.getWriter().write("添加失败");
             }
