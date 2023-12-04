@@ -53,7 +53,7 @@ layui.use('table', function () {
                 // 1、同步
                 // window.location.href=`/uf/operationEmployee/delete?id=${id}`
                 // 2、异步
-                $.get(`/uf/operationEmployee/delete?id=${id}`,(res)=>{
+                $.get(`/uf/operationEmployee/delete`,{id:`${id}`},(res)=>{
                     if (res==='true'){
                         // layer.alert('删除成功')
                         layer.msg('删除成功')
