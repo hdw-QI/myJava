@@ -15,7 +15,7 @@ import java.io.IOException;
  * @date: 2023/12/1 11:47
  * @version: 1.0
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
