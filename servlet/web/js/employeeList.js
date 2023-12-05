@@ -58,6 +58,8 @@ layui.use('table', function () {
                     if (res==='true'){
                         // layer.alert('删除成功')
                         layer.msg('删除成功')
+                        // 表格重载
+                        table.reload('test');
                     }else {
                         // layer.alert('删除失败')
                         layer.msg('删除失败')
