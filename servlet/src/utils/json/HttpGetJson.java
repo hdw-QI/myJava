@@ -46,4 +46,13 @@ public class HttpGetJson {
 
         return (JSONObject) JSONObject.parse(result);
     }
+
+//    使用
+/* 
+JSONObject data= HttpGetJson.getJson(request);
+    if (data!=null){
+        //业务处理，例如:System.out.println("number--->"+data.get("number"));
+        //利用get就能从json取出对应的键值对.
+    }
+*/
 }
