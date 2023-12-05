@@ -1,6 +1,5 @@
 package utils.db.utils;
 
-import test.Bean;
 import utils.db.annotation.apt.ColumnAPT;
 import utils.db.annotation.apt.IdAPT;
 import utils.db.annotation.apt.TableAPT;
@@ -262,7 +261,7 @@ public class GetSQL<T>{
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         GetSQL<Bean> beanGetSQL = new GetSQL<>();
         Bean bean = new Bean();
         bean.setId(23);
@@ -293,5 +292,5 @@ public class GetSQL<T>{
 
 //        String s = beanGetSQL.queryWhereInId(Bean.class, objects);
 //        System.out.println(s);
-    }
+    }*/
 }
