@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @package: utils.db.annotation
  * @className: Id
  * @author: 胡代伟
- * @description: 用于实体类的字段上，用于标注在数据库中主键的字段名
+ * @description: 用于实体类的字段上，用于标注在数据库中主键的字段名。必须用于实体上
  * @date: 2023/11/24 8:53
  * @version: 1.0
  */

@@ -5,6 +5,7 @@ import utils.db.SQLExecutorManager;
 import utils.db.execution.ExecutionDQL;
 import utils.db.model.PageParams;
 import utils.db.model.PageResult;
+import utils.db.utils.TransformHump;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -309,7 +310,7 @@ public class ExecutionDQLImpl<T> implements ExecutionDQL<T> {
                 newInstance = declaredConstructor.newInstance();
                 for (Field declaredField : declaredFields) {
                     // 驼峰转下划线
-                    String dbField = humpToLine(declaredField.getName());
+                    String dbField = TransformHump.humpToLine(declaredField.getName());
                     // 设置成员属性
                     String beanField = declaredField.getName();
                     String setMethodNameString = "set" + String.valueOf(beanField.charAt(0)).toUpperCase() + beanField.substring(1);
@@ -386,58 +387,5 @@ public class ExecutionDQLImpl<T> implements ExecutionDQL<T> {
         return mapArrayList;
     }
 
-    private static final Pattern linePattern = Pattern.compile("_(\\w)");
-    /**
-     * @param str:带下划线的字符串
-     * @return String 驼峰命名字符串
-     * @author 胡代伟
-     * @description 下划线转驼峰
-     * @date 2023/11/9 14:17
-     */
-    public static String lineToHump(String str) {
-        str = str.toLowerCase();
-        Matcher matcher = linePattern.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
-        }
-        matcher.appendTail(sb);
-        return sb.toString();
-    }
 
-
-
-    private static Pattern humpPattern = Pattern.compile("[A-Z]");
-    /**
-     * @param str:驼峰命名字符串
-     * @return String 带下划线的字符串
-     * @author 胡代伟
-     * @description 驼峰转下划线
-     * @date 2023/11/9 14:19
-     */
-    public static String humpToLine(String str) {
-        Matcher matcher = humpPattern.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
-        }
-        matcher.appendTail(sb);
-        return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(lineToHump("create_time"));
-        System.out.println(humpToLine("createTime"));
-
-        int pageSize=10;
-        long size=134;
-        System.out.println((size/pageSize)+1);
-
-        String sql="select * from class_info order by id DESC  limit ?,?";
-        String limit = sql.split("limit")[0];
-        System.out.println(limit);
-
-
-
-    }
 }

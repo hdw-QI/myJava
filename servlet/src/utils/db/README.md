@@ -24,9 +24,144 @@ ConnectionPoolManager：数据库连接池父接口
 注解应用场景：mybatis-plus的实体类注解
 模仿mybatis-plus：
 这些注解在annotation包下
-①、@Table：用于实体类的类上，用于标注实体类在数据库中的表名。未使用注解，则默认为表名为驼峰转换后的名称
-②、@Id：用于实体类的字段上，用于标注在数据库中主键的字段名。未使用注解，则默认为主键字段名为驼峰转换后的名称
+①、@Table：用于实体类的类上，用于标注实体类在数据库中的表名。必须使用
+②、@Id：用于实体类的字段上，用于标注在数据库中主键的字段名。必须使用
 ③、@Column：用于标注实体类除id之外的字段，用于标注在数据库中相应的字段名，则默认为字段名为驼峰转换后的名称
-封装的添加数据、修改数据、删除数据方法在ExecutionDML
-封装的查询方法在ExecutionDQL
 
+NoSQL.java封装了不需要sql语句即可存在数据库的方法
+使用示列
+```java
+@Table("employee")
+public class Employee {
+    @Id("id")
+    private int id;
+    private String name;
+    private String location;
+    private String isMale;
+    private Date joinDate;
+    private int salary;
+    private int deptId;
+    private String photo;
+
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public String getLocation() {
+        return location;
+    }
+
+    public void setIsMale(String ismale) {
+        this.isMale = ismale;
+    }
+    public String getIsMale() {
+        return isMale;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
+    }
+    public int getDeptId() {
+        return deptId;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    public String getPhoto() {
+        return photo;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", isMale='" + isMale + '\'' +
+                ", joinDate=" + joinDate +
+                ", salary=" + salary +
+                ", deptId=" + deptId +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+}
+```
+```java
+@ConfigFilePath("db.properties")
+public class TestDb {
+    public static void main(String[] args) {
+        ConnectionPoolManager connectionPoolManager = new ConnectionPoolManagerImpl();
+        Employee employee = new Employee();
+        employee.setDeptId(2);
+        employee.setIsMale("1");
+        employee.setName("haha");
+        employee.setJoinDate(new Date());
+        employee.setLocation("das");
+        employee.setSalary(12333);
+        employee.setPhoto("dasdas");
+        employee.setId(705);
+        NoSQL<Employee> employeeNoSQL = new NoSQLImpl<>();
+//        int i = employeeNoSQL.insertOne(connectionPoolManager,employee);
+//        System.out.println(i);
+
+
+        ArrayList<Object> objects = new ArrayList<>();
+        objects.add(707);
+        objects.add(513);
+//        int i = employeeNoSQL.deleteWhereIdIn(connectionPoolManager, Employee.class, objects);
+//        System.out.println(i);
+//        int i = employeeNoSQL.updateWhereEqId(connectionPoolManager, employee);
+//        System.out.println(i);
+
+//        List<Employee> employees = employeeNoSQL.queryBeanWhereInId(connectionPoolManager, Employee.class, objects);
+//        for (Employee employee1 : employees) {
+//            System.out.println(employee1);
+//        }
+
+
+//        List<Map<String, Object>> maps = employeeNoSQL.queryMapWhereInId(connectionPoolManager, Employee.class, objects);
+//        System.out.println(maps);
+
+//        List<Employee> employees = employeeNoSQL.queryAll(connectionPoolManager, Employee.class);
+//        for (Employee employee1 : employees) {
+//            System.out.println(employee1);
+//        }
+
+        PageResult<Employee> employeePageResult = employeeNoSQL.queryPageAll(connectionPoolManager, Employee.class, new PageParams(1, 10));
+        List<Employee> result = employeePageResult.getResult();
+        for (Employee employee1 : result) {
+            System.out.println(employee1);
+        }
+    }
+}
+```
