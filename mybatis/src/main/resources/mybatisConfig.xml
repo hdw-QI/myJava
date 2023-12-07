@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 1.properties属性引入外部配置文件 -->
+    <properties resource="druid.properties"/>
+
+    <!-- 7.environments数据库环境配置 -->
+    <!-- 和Spring整合后environments配置将配废除 -->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!-- 使用JDBC事务管理 -->
+            <transactionManager type="JDBC" />
+            <!-- 数据库连接池 -->
+            <dataSource type="utils.druid.DruidDataSourceFactory">
+                <property name="driverClass" value="${driver}"/>
+                <property name="jdbcUrl" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 将包内的映射器接口实现全部注册为映射器 -->
+    <mappers>
+        <package name="dao.mapper"/>
+    </mappers>
+
+</configuration>
