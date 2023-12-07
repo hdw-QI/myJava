@@ -6,6 +6,16 @@
     <!-- 1.properties属性引入外部配置文件 -->
     <properties resource="druid.properties"/>
 
+    <!--2. 全局配置参数 -->
+    <settings>
+        <!-- 设置是否启动缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置是否启用懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--使用LOG4J2显示sql日志-->
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+
     <!-- 7.environments数据库环境配置 -->
     <!-- 和Spring整合后environments配置将配废除 -->
     <environments default="mysql">
@@ -16,7 +26,7 @@
             <dataSource type="utils.druid.DruidDataSourceFactory">
                 <property name="driverClass" value="${driver}"/>
                 <property name="jdbcUrl" value="${url}"/>
-                <property name="username" value="${username}"/>
+                <property name="username" value="${user}"/>
                 <property name="password" value="${password}"/>
             </dataSource>
         </environment>
