@@ -61,8 +61,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //调用代理对象方法
         int deletedById = employeeMapper.deleteById(id);
-        //提交事务
-        session.commit();
+        if (deletedById > 0) {
+            //提交事务
+            session.commit();
+        }
         //关闭session
         session.close();
         return deletedById;
