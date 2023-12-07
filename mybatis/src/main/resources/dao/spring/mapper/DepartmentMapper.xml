@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.spring.mapper.DepartmentMapper">
+    <insert id="addOne" parameterType="department">
+        insert into department values (#{id},#{name},#{companyId},#{buildDate},#{number})
+    </insert>
+
+
+    <select id="getAll" resultType="domain.entity.Department">
+        select * from department
+    </select>
+</mapper>

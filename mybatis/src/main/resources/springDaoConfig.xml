@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc  
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <!--连接数据库这里读取的是配置文件-->
+    <!--连接池-->
+    <context:property-placeholder location="classpath:druid.properties"/>
+    <!--使用druid连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!-- 配置SessionFactory的Bean -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        <!--指定数据源-->
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--指定实体类的包-->
+        <property name="typeAliasesPackage" value="domain"/>
+
+        <!--当接口与配置文件不一样时需要 指定映射文件的包-->
+        <!--<property name="mapperLocations" value="dao/spring/mapper/*Mapper.xml"/>-->
+
+        <!--指定配置文件-->
+        <property name="configLocation" value="classpath:mybatisSpringConfig.xml"/>
+    </bean>
+
+    <!-- 配置mapper接口的扫描器，将Mapper接口的实现类自动注入到IoC容器中
+     实现类Bean的名称默认为接口类名的首字母小写 -->
+    <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="dao.spring.mapper"/>
+    </bean>
+
+
+    <!--如果不整合事务，以上操作可以直接对数据库进行操作-->
+    <!--事务整合-->
+    <import resource="springTransactionConfig.xml"/>
+
+
+
+
+</beans>
