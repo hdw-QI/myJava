@@ -17,7 +17,7 @@ import java.util.List;
  * @date: 2023/12/7 15:15
  * @version: 1.0
  */
-@Service
+@Service("departmentService")
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentMapper departmentMapper;

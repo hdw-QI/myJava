@@ -2,6 +2,7 @@ package controller;
 
 import domain.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import service.spring.DepartmentService;
 
@@ -23,7 +24,8 @@ import java.util.List;
  * @version: 1.0
  */
 @Controller
-public class DepartmentController{
+@WebServlet("/test")
+public class DepartmentController extends HttpServlet {
     @Autowired
     private DepartmentService departmentService;
 
@@ -31,4 +33,18 @@ public class DepartmentController{
         List<Department> all = departmentService.getAll();
         System.out.println(all);
     }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        加载文件放在监听器里面
+//        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:springConfig.xml");
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = (ClassPathXmlApplicationContext)this.getServletContext().getAttribute("spring");
+        DepartmentService departmentService = (DepartmentService)classPathXmlApplicationContext.getBean("departmentService");
+        List<Department> all = departmentService.getAll();
+        System.out.println(all);
+    }
+
+
+
+
 }

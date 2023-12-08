@@ -1,8 +1,6 @@
 package service.spring;
 
 import domain.entity.Department;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
