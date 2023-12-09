@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.spring.mapper.CompanyMapper">
+
+    <select id="getById" resultType="domain.entity.Company">
+        select * from company where id=#{id}
+    </select>
+
+    <resultMap id="getAll" type="companyVO">
+        <id property="id" column="id"/>
+        <result property="buildDate" column="buildDate"/>
+        <result property="name" column="name"/>
+        <result property="location" column="location"/>
+        <collection property="departmentList" ofType="department">
+            <id property="id" column="depaId"/>
+            <result property="name" column="depaName"/>
+            <result property="companyId" column="companyId"/>
+            <result property="number" column="number"/>
+            <result property="buildDate" column="buildDate"/>
+        </collection>
+    </resultMap>
+    <select id="getAllById" resultMap="getAll">
+        SELECT  c.`id`,c.`name`, c.`location`,c.`buildDate` ,d.`id` depaId,d.`name` depaName,d.`companyId`,d.`buildDate`,d.`number`
+        FROM company c
+        LEFT JOIN department d ON c.`id`=d.`companyId`
+        where c.id=#{id}
+    </select>
+
+    <resultMap id="getAllByIdCompanyVo" type="companyVO">
+        <id property="id" column="id"/>
+        <result property="buildDate" column="buildDate"/>
+        <result property="name" column="name"/>
+        <result property="location" column="location"/>
+        <collection property="departmentList" select="dao.spring.mapper.DepartmentMapper.getByCompanyId" column="id"/>
+    </resultMap>
+    <select id="getAllByIdCompanyVo" resultMap="getAllByIdCompanyVo">
+        select * from company where id=#{id}
+    </select>
+</mapper>

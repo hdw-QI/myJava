@@ -7,6 +7,12 @@
     <settings>
         <!--使用LOG4J2显示sql日志-->
         <setting name="logImpl" value="LOG4J2"/>
+
+
+        <!--设置是否启用懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--设置的加载数据是按需还是全部-->
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <!--<typeAliases>
         <package name="domain"/>

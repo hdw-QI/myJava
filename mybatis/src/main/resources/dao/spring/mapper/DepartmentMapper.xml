@@ -7,8 +7,136 @@
         insert into department values (#{id},#{name},#{companyId},#{buildDate},#{number})
     </insert>
 
+    <insert id="insertOne"
+    useGeneratedKeys="true"
+    keyProperty="id"
+    >
+        insert into department values (#{id},#{name},#{companyId},#{buildDate},#{number})
+    </insert>
+
+    <insert id="addByList">
+        insert into department values
+        <foreach collection="list" item="dep" separator=",">
+            (null,#{dep.name},#{dep.companyId},#{dep.buildDate},#{dep.number})
+        </foreach>
+    </insert>
+
+
+    <update id="update">
+        update department
+        <set>
+            <if test="companyId != 0">
+                companyId=#{companyId},
+            </if>
+            <if test="number != 0">
+                number=#{number},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+    <delete id="deleteByArray">
+        delete from department
+        <where>
+        <foreach collection="array" open="id in (" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+        </where>
+    </delete>
+
 
     <select id="getAll" resultType="domain.entity.Department">
         select * from department
     </select>
+
+    <select id="getManyById" resultType="domain.entity.Department">
+        select * from department where id>#{id}
+    </select>
+
+    <select id="getManyByName" resultType="domain.entity.Department">
+        select * from department where name like '%${name}%'
+    </select>
+
+    <select id="getByWhereMany" resultType="domain.entity.Department">
+        select * from department
+        <if test="companyId != null">
+            where companyId=#{companyId}
+        </if>
+        <if test="number != 0">
+            and number>=#{number}
+        </if>
+    </select>
+
+    <select id="getByWhere" resultType="domain.entity.Department">
+        select * from department
+        <where>
+            <if test="companyId != 0">
+                companyId=#{companyId}
+            </if>
+            <if test="number > 0">
+                and number>=#{number}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByCondition" resultType="domain.entity.Department">
+        select * from department
+        <where>
+            <choose>
+                <when test="companyId &lt; 5">
+                    name like '%${name}%'
+                </when>
+                <when test="companyId &lt; 10">
+                    name = #{name}
+                </when>
+                <otherwise>
+                    id=#{id}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <resultMap id="getName" type="departmentVO">
+        <!--可以自定义映射关系-->
+    </resultMap>
+    <select id="getNameById" resultMap="getName">
+        SELECT  d.`id`,d.`name`,d.`companyId`,d.`buildDate`,d.`number`,c.`name` companyName FROM department d
+        LEFT JOIN company c ON c.`id`=d.`companyId`
+        where d.id=#{id}
+    </select>
+
+    <resultMap id="getAllDept" type="departmentCompanyVO">
+        <id column="id" property="id"/>
+        <result property="buildDate" column="buildDate"/>
+        <result property="name" column="name"/>
+        <result property="number" column="number"/>
+        <result property="companyId" column="companyId"/>
+        <association property="company" javaType="company">
+            <id column="companyId" property="id"/>
+            <result column="companyName" property="name"/>
+            <result column="companyLocation" property="location"/>
+            <result column="companyBuildDate" property="buildDate"/>
+        </association>
+    </resultMap>
+    <select id="getAllByDeptId" resultMap="getAllDept">
+        SELECT  d.`id`,d.`name`,d.`companyId`,d.`buildDate`,d.`number`,c.`id` companyId,c.`name` companyName, c.`location` companyLocation,c.`buildDate` companyBuildDate  FROM department d
+        LEFT JOIN company c ON c.`id`=d.`companyId`
+        where d.id=#{id}
+    </select>
+
+    <resultMap id="getDC" type="departmentCompanyVO">
+        <association property="company" select="dao.spring.mapper.CompanyMapper.getById" column="companyId"/>
+    </resultMap>
+    <select id="getDCById" resultMap="getDC">
+        select * from department where id=#{id}
+    </select>
+
+
+    <select id="getByCompanyId" resultType="domain.entity.Department">
+        select * from department where companyId=#{id}
+    </select>
+
+
 </mapper>
