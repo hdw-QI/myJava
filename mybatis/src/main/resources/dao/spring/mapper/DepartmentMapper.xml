@@ -22,7 +22,7 @@
     </insert>
 
 
-    <!--<set>会自动添加set关键字，并去掉最后一个if语句中多余的逗号。-->
+    <!--<set>会自动添加set关键字，并去掉最后一个或者第一个if语句中多余的逗号。-->
     <!--companyId != ''、companyId == '男'适用于字符串类型-->
     <update id="update">
         update department
@@ -80,7 +80,7 @@
         </if>
     </select>
 
-    <!--当只满足number > 0时，and number>=#{number}中的第一个and会自动去掉-->
+    <!--当只满足number > 0时，and number>=#{number}中的第一个and会自动去掉，第一个or也会自动去掉-->
     <select id="getByWhere" resultType="domain.entity.Department">
         select * from department
         <where>

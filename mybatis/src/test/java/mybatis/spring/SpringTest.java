@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import service.spring.DepartmentService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,9 @@ public class SpringTest {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
+    private DepartmentService departmentService;
     /*
     @Test
     public void testFindUserList(){
@@ -41,11 +45,17 @@ public class SpringTest {
         System.out.println(all);
     }*/
 
-    @Autowired
-    private DepartmentController departmentController;
-    @Test
+
+    /*@Test
     public void testFindUserList(){
         departmentController.test();
+    }*/
+
+    // 测试分页
+    @Test
+    public void testPageHelper(){
+        List<Department> all = departmentService.getAll();
+        System.out.println(all);
     }
 
     /*条件查询。特殊字符处理*/

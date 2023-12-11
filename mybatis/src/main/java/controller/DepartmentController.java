@@ -29,10 +29,10 @@ public class DepartmentController extends HttpServlet {
     @Autowired
     private DepartmentService departmentService;
 
-    public void test() {
+    /*public void test() {
         List<Department> all = departmentService.getAll();
         System.out.println(all);
-    }
+    }*/
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

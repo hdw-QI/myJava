@@ -1,5 +1,7 @@
 package service.impl.spring;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import dao.spring.mapper.DepartmentMapper;
 import domain.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentMapper departmentMapper;
     @Override
     public List<Department> getAll() {
-        return departmentMapper.getAll();
+        // 使用分页插件
+        PageHelper.startPage(1, 5);
+        List<Department> all = departmentMapper.getAll();
+        PageInfo<Department> departmentPageInfo = new PageInfo<>(all);
+        System.out.println(departmentPageInfo);
+        return all;
     }
 
     @Override
