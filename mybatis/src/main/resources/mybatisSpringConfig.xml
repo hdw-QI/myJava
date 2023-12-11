@@ -7,8 +7,8 @@
     <settings>
         <!--使用LOG4J2显示sql日志-->
         <setting name="logImpl" value="LOG4J2"/>
-
-
+        <!-- 配置mybatis自动转换为驼峰式命名 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--设置是否启用懒加载 -->
         <setting name="lazyLoadingEnabled" value="true"/>
         <!--设置的加载数据是按需还是全部-->
