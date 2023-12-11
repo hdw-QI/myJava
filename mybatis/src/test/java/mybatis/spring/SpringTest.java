@@ -95,7 +95,7 @@ public class SpringTest {
     public void getByWhere() {
         Department department1 = new Department();
         department1.setNumber(123);
-        department1.setCompanyId(3);
+        department1.setCompanyId(0);
         List<Department> byWhereMany = departmentMapper.getByWhere(department1);
         for (Department department : byWhereMany) {
             System.out.println(department);

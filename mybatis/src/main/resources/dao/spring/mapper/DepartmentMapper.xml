@@ -22,10 +22,13 @@
     </insert>
 
 
+    <!--<set>会自动添加set关键字，并去掉最后一个if语句中多余的逗号。-->
+    <!--companyId != ''、companyId == '男'适用于字符串类型-->
     <update id="update">
         update department
         <set>
-            <if test="companyId != 0">
+
+            <if test="companyId != 0 and companyId != ''">
                 companyId=#{companyId},
             </if>
             <if test="number != 0">
@@ -58,16 +61,26 @@
         select * from department where name like '%${name}%'
     </select>
 
+    <!--为什么where后面加1=1
+    任意条件都可能拼接到Sql中。如果有多个条件，从第二个条件开始前都需要加And关键字。
+    加上1=1这个永久成立的条件，就不需要考虑后面的条件哪个是第一个条件，
+    后面的条件前都加And关键字即可。-->
+    <!--字符串参数可以在test属性中使用方法。如
+    <if test="sex != null and sex.length() != 0">
+       and sex = #{sex}
+    </if>
+    -->
     <select id="getByWhereMany" resultType="domain.entity.Department">
-        select * from department
+        select * from department where 1=1
         <if test="companyId != null">
-            where companyId=#{companyId}
+            and companyId=#{companyId}
         </if>
         <if test="number != 0">
             and number>=#{number}
         </if>
     </select>
 
+    <!--当只满足number > 0时，and number>=#{number}中的第一个and会自动去掉-->
     <select id="getByWhere" resultType="domain.entity.Department">
         select * from department
         <where>
