@@ -60,7 +60,11 @@ public interface DepartmentMapper {
     public DepartmentCompanyVO getAllByDeptId(int id);
 
     /*3、association 分步查询
-     * 在分步查询的基础上，可以使用延迟加载来提升查询的效率*/
+     * 在分步查询的基础上，可以使用延迟加载来提升查询的效率
+     * 使用场景：
+     * 使用外连接时，一张表的一条数据在查询结果中出现多条。如公司表与部门表使用外查询，则部门有多少条，结果就有多少条。
+     * 而我们需要的是公司表有多少条，结果就有多少条，部门以集合的方式出现在一条数据中。这时就需要分步查询
+     * */
     public DepartmentCompanyVO getDCById(int id);
 
     /*4、POJO中的属性可能会是一个集合对象，我们可以使用联合查询，并以级联属性的方式封装对象，使用collection标签定义对象的封装规则。*/
