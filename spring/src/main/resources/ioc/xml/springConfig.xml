@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc  
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="utils.spring">
+    </context:component-scan>
+
+    <!--总结
+    1、实例化：bean
+    2、依赖注入
+        ①setter
+            property
+        ②构造方法
+            constructor-arg
+    3、引用对象：ref
+    4、数组：array
+            基本类型：value
+            引用类型：bean
+    5、单链集合：list
+            基本类型：value
+            引用类型：bean
+    6、双链集合：map
+            entry(key属性指定键。 值：基本类型 value属性)
+                值：引用类型 bean （注意：entry标签下只能有一个bean）
+                -->
+
+    <!--实例化对象(注意：同一个类实例化多个时，获取时要以id值进行获取)-->
+    <bean id="t1" class="ioc.xml.domain.TestProperty">
+    </bean>
+
+    <!--构造方法注入（注意：constructor-arg的个数与构造方法参数的个数要一样）-->
+    <bean id="t2" class="ioc.xml.domain.TestProperty">
+        <constructor-arg name="name" value="琪琪"/>
+    </bean>
+
+    <!--setter注入-->
+    <!--注入对象属性(基本类型)-->
+    <bean id="t3" class="ioc.xml.domain.TestXML">
+        <property name="age" value="1"/>
+    </bean>
+
+    <!--注入对象属性(引用数据类型)-->
+    <bean id="t4" class="ioc.xml.domain.TestXML">
+        <property name="testProperty" ref="t1"/>
+    </bean>
+
+    <bean id="t5" class="ioc.xml.domain.TestXML">
+        <property name="testProperty">
+            <bean class="ioc.xml.domain.TestProperty">
+                <property name="name" value="胡">
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入基本类型数组)-->
+    <bean id="t6" class="ioc.xml.domain.TestXML">
+        <property name="ins">
+            <array>
+                <value>1</value>
+                <value>3</value>
+                <value>1</value>
+                <value>4</value>
+            </array>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入引用类型数组)-->
+    <bean id="t7" class="ioc.xml.domain.TestXML">
+        <property name="testProperties">
+            <array>
+                <bean class="ioc.xml.domain.TestProperty">
+                    <property name="name" value="wda"/>
+                </bean>
+                <bean class="ioc.xml.domain.TestProperty">
+                    <property name="name" value="das"/>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入基本类型list集合)-->
+    <bean id="t8" class="ioc.xml.domain.TestXML">
+        <property name="list">
+            <list>
+                <value>12</value>
+                <value>18</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入引用类型list集合)-->
+    <bean id="t9" class="ioc.xml.domain.TestXML">
+        <property name="testPropertyList">
+            <list>
+                <bean class="ioc.xml.domain.TestProperty">
+                    <property name="name" value="wda"/>
+                </bean>
+                <bean class="ioc.xml.domain.TestProperty">
+                    <property name="name" value="das"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入基本类型map集合)-->
+    <bean id="t10" class="ioc.xml.domain.TestXML">
+        <property name="map">
+            <map>
+                <entry key="1" value="12"/>
+                <entry key="2" value="13"/>
+                <entry key="2" value="12"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--注入对象属性(注入引用类型map集合)-->
+    <bean id="t11" class="ioc.xml.domain.TestXML">
+        <property name="map">
+            <map>
+                <entry key="t1">
+                    <bean class="ioc.xml.domain.TestProperty">
+                        <property name="name" value="wda"/>
+                    </bean>
+                    <!--entry标签下只能有一个bean-->
+                    <!--<bean class="ioc.xml.domain.TestProperty">
+                        <property name="name" value="das"/>
+                    </bean>-->
+                </entry>
+                <entry key="t2">
+                    <bean class="ioc.xml.domain.TestProperty">
+                        <property name="name" value="das"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>
