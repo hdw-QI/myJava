@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--实例化切面类-->
+    <bean id="myAspect" class="aop.xml.MyAspect"/>
+
+    <!--实例化切点所在的类-->
+    <bean class="aop.xml.MyTarget"/>
+
+    <!--aop配置-->
+    <aop:config>
+        <!--指明切点。（对谁增强）-->
+        <aop:pointcut id="cutPoint" expression="execution(* aop.xml.MyTarget.*(..))"/>
+
+        <!--指明切面以何种方式对切点进行增强-->
+        <aop:aspect ref="myAspect">
+            <!--前置通知-->
+<!--            <aop:before method="beforeMethod" pointcut-ref="cutPoint"/>-->
+<!--            &lt;!&ndash;最后通知&ndash;&gt;-->
+<!--            <aop:after method="afterMethod" pointcut-ref="cutPoint"/>-->
+<!--            &lt;!&ndash;异常通知&ndash;&gt;-->
+<!--            <aop:after-throwing method="throwingMethod"  pointcut-ref="cutPoint"/>-->
+
+            <!--环绕通知（注意环绕通知需要ProceedingJoinPoint类型的对象）-->
+            <aop:around method="around" pointcut-ref="cutPoint"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
