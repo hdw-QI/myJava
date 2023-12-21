@@ -39,16 +39,16 @@
                 值：引用类型 bean （注意：entry标签下只能有一个bean）
                 -->
 
-    <!--实例化对象(注意：同一个类实例化多个时，获取时要以id值进行获取)-->
+    <!--实例化对象(控制翻转)(注意：同一个类实例化多个时，获取时要以id值进行获取)-->
     <bean id="t1" class="ioc.xml.domain.TestProperty">
     </bean>
 
-    <!--构造方法注入（注意：constructor-arg的个数与构造方法参数的个数要一样）-->
+    <!--构造方法注入（依赖注入）（注意：constructor-arg的个数与构造方法参数的个数要一样）-->
     <bean id="t2" class="ioc.xml.domain.TestProperty">
         <constructor-arg name="name" value="琪琪"/>
     </bean>
 
-    <!--setter注入-->
+    <!--setter注入（依赖注入）-->
     <!--注入对象属性(基本类型)-->
     <bean id="t3" class="ioc.xml.domain.TestXML">
         <property name="age" value="1"/>
