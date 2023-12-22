@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--数据源配置-->
+    <context:property-placeholder location="classpath:db/db.properties"/>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!--使用spring自带的持久层技术。实例化jdbcTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!-- 事务管理器  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置事务的增强，指定对哪个事务管理器进行增强-->
+    <!--<tx:advice id="interceptor" transaction-manager="transactionManager">
+
+        &lt;!&ndash;配置事务的参数（这个可以不用配置(只要满足切点的方法类都会进行事务管理)。用于对某个方法或类进行更加细致的事务控制（如事务等级等））&ndash;&gt;
+        &lt;!&ndash;name:表示来配置你要增强的方法的匹配的一个规则; propagation：事务的传播行为&ndash;&gt;
+        <tx:attributes>
+            &lt;!&ndash;<tx:method name="findByName" read-only="true" propagation="SUPPORTS"/>&ndash;&gt;
+            &lt;!&ndash;<tx:method name="*" read-only="false" propagation="REQUIRED"/>&ndash;&gt;
+            <tx:method name="account*" read-only="false" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="dao" expression="execution(* transaction.xml.service..*(..))"/>
+        <aop:advisor advice-ref="interceptor" pointcut-ref="dao"/>
+    </aop:config>-->
+
+
+    <!--
+        开启事务控制的注解支持
+        注意：此处必须加入proxy-target-class="true"，
+              需要进行事务控制，会由Spring框架产生代理对象，
+              Dubbo需要将Service发布为服务，要求必须使用cglib创建代理对象。
+    -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+</beans>
