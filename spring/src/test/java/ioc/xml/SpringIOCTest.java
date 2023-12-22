@@ -4,9 +4,13 @@ import ioc.xml.domain.TestProperty;
 import ioc.xml.domain.TestXML;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import utils.spring.SpringUtil;
+
+import javax.annotation.Resource;
 
 /**
  * @projectName: git
@@ -21,17 +25,22 @@ import utils.spring.SpringUtil;
 @ContextConfiguration(locations = "classpath:ioc/xml/springConfig.xml")
 public class SpringIOCTest {
     // 实例化对象
+    @Autowired
+    @Qualifier("t1")
+    TestProperty beanT1;
     @Test
     public void test1() {
-        TestProperty bean = SpringUtil.getBean("t1",TestProperty.class);
-        System.out.println(bean);
+//        TestProperty bean = SpringUtil.getBean("t1",TestProperty.class);
+        System.out.println(beanT1);
     }
 
     // 构造方法注入
+    @Resource(name = "t2")
+    TestProperty beanT2;
     @Test
     public void test2() {
-        TestProperty bean = SpringUtil.getBean("t2",TestProperty.class);
-        System.out.println(bean);
+//        TestProperty bean = SpringUtil.getBean("t2",TestProperty.class);
+        System.out.println(beanT2);
     }
 
     // 注入对象属性为基本类型
