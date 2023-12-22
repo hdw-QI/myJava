@@ -197,4 +197,58 @@ public class NewAspect {
 
 </beans>
 ```
+aop:aspectj-autoproxy标签属性详解
+
+proxy-target-class:
+Spring AOP 部分使用JDK动态代理或者CGLIB来为目标对象创建代理.(建议尽量使用JDK的动态代理),如果被代理的目标对象实现了至少一个接口,则会使用JDK动态代理,所以该目标类型实现的接口都将被代理.
+也就是说当目标对象实现了接口,则默认使用JDK的动态代理,若该目标对象没有实现任何接口,则创建一个CGLIB代理,如果你希望强制使用CGLIB代理,则需要将该参数显示的设置成true.
+注意:
+1.使用JDK动态代理,只能代理该目标对象实现接口的方法,并不能代理实现类中自己定义的方法.
+2.如果你希望代理目标对象的所有方法,而不只是实现自接口的方式,可以使用CGLIB代理,本质是扩展目标对象类,但是需要考虑一下两个问题:
+1)无法通知(advise)Final方法,因为他们不能被覆盖写
+2)你需要将CGLIB的jar包放在classpath下面
+3.当需要使用CGLIB代理和@AspectJ自动代理支持,使用该代码设置<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="false" />
+
+expose-proxy :
+expose-proxy。为是否暴露当前代理对象为ThreadLocal模式。
+有时候目标对象内部的自我调用将无法实施切面中的增强
+我们先来看一个问题: @Transacitonal注解的方法被另外一个方法调用的时候，事务是不生效的。具体不生效代码如下
+
+```java
+public interface UserService{
+public void a();
+public void b();
+}
+
+public class UserServiceImpl implements UserService{
+@Transactional(propagation = Propagation.REQUIRED)
+public void a(){
+this.b();
+}
+
+@Transactional(propagation = Propagation.REQUIRED_NEW)
+public void b(){
+System.out.println("b has been called");
+}
+}
+```
+
+分析:
+SpringAOP对于最外层的函数只拦截public方法，不拦截protected和private方法，另外不会对最外层的public方法内部调用的其他方法也进行拦截，即只停留于代理对象所调用的方法。所以我们会发现如果调用a方法,在b方法中出现异常时,事务不生效.
+解决办法:
+答案就是在<aop:aspectj-autoproxy />中设置expose-proxy属性为true暴露代理.<aop:aspectj-autoproxy expose-proxy=“true”> ，然后使用AopContext.currentProxy()获取当前代理，将this.b()改为((UserService)AopContext.currentProxy()).b()，这样就生效了。
+分析参考: https://www.cnblogs.com/chihirotan/p/7356683.html
+
+关于JDK和CGLIB方式的总结:
+如果目标对象实现了接口,默认情况会采用JDK自动代理实现AOP
+如果目标对象实现了接口,可以强制使用CGLIB实现AOP
+如果目标对象没有实现接口,必须采用CGLIB库,Spring会在JDK动态代理和CGLIB之间转换.
+
+如何强制使用CGLIB实现AOP?
+1.添加CGLIB依赖库
+2.在Spring配置文件中加入<aop:aspectj-autoproxy proxy-target-class="true" />
+
+JDK动态代理和CGLIB字节码生成的区别?
+JDK动态代理只能对实现了接口的类生成代理,而不能针对类.
+CGLIB是针对类实现代理,主要是对指定的类生成一个子类,覆盖其中的方法,因为是继承,所以该类或方法最好不要声明成final.
 
