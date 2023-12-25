@@ -83,21 +83,18 @@
       <artifactId>spring-web</artifactId>
       <version>${spring.version}</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webflux</artifactId>
       <version>${spring.version}</version>
     </dependency>
-
     <!--加入servlet依赖（servlet的jar）-->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -111,6 +108,17 @@
       <artifactId>javax.servlet.jsp-api</artifactId>
       <version>2.2.1</version>
       <scope>provided</scope>
+    </dependency>
+    <!--文件上传-->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
     </dependency>
 
 
