@@ -2,6 +2,10 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
+<!--web.xml的作用
+  首先java web项目中的并不是必须需要web.xml文件的。
+  其次它主要的是用来配置欢迎页、servlet、filter、listener等以及定制servlet、JSP、Context初始化参数。
+  -->
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
