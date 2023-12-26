@@ -9,13 +9,14 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
-  <!--1.2、设置springMVC配置文件的路径-->
+  <!--1.2、设置spring配置文件的路径-->
   <context-param>
+    <!--contextConfigLocation是固定名称-->
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/springConfig.xml</param-value>
   </context-param>
 
-  <!--    解决中文乱码的过滤器-->
+  <!--解决请求中的中文乱码的过滤器-->
   <filter>
     <filter-name>characterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

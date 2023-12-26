@@ -60,7 +60,7 @@
     <!-- 配置mapper接口的扫描器，将Mapper接口的实现类自动注入到IoC容器中
      实现类Bean的名称默认为接口类名的首字母小写 -->
     <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="dao.spring.mapper"/>
+        <property name="basePackage" value="dao"/>
     </bean>
 
 
