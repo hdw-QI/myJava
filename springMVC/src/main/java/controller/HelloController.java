@@ -1,5 +1,6 @@
 package controller;
 
+import exception.MyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +75,19 @@ public class HelloController {
 
         return file.length;
     }
+
+    //测试自定义异常处理器
+    //步骤：
+    //1、自定义异常（可没有）
+    //2、自定义异常处理器
+    //3、在springmvc配置文件中配置自定义异常处理器
+    @GetMapping("/testException")
+    public void testException() throws MyException {
+        if (true) {
+            throw new MyException("自定义异常");
+        }
+    }
+
 
 
 
