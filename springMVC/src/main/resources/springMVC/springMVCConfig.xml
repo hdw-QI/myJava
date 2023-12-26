@@ -42,6 +42,15 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <!--声明类型类型转换器-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="converter.StringToDateConverter"/>
+            </list>
+        </property>
+    </bean>
+
     <!--文件上传配置-->
     <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容，默认为ISO-8859-1 -->
@@ -54,7 +63,8 @@
     <!--开启springMVC注解(@GetMapping等)的支持-->
     <!--springmvc.xml 配置文件中使用 <mvc:annotation-driven/> 标签替代 bean 标签配置的注解处理器和适配器。-->
     <!--还有一个功能，当使用@ResponseBody时（返回响应体），会自动将对象或集合转换成json格式（默认使用Json序列化工具jackson转换为json）-->
-    <mvc:annotation-driven>
+    <!--conversion-service属性引用转换器-->
+    <mvc:annotation-driven conversion-service="conversionService">
         <!--        消息转换器：不使用默认的jackson组件-->
         <mvc:message-converters register-defaults="true">
             <!--            配置FastJson工具中的消息转换器类-->
