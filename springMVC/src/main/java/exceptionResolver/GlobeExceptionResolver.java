@@ -3,8 +3,13 @@ package exceptionResolver;
 import domain.vo.ResponseVo;
 import exception.ExceptionEnum;
 import exception.MyException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 胡代伟
@@ -26,6 +31,22 @@ public class GlobeExceptionResolver {
     @ExceptionHandler(MyException.class)
     public ResponseVo<String> back(MyException myException) {
         return ResponseVo.backException(ExceptionEnum.SYS_EXCEPTION.getCode(), myException.getMsg(), ExceptionEnum.SYS_EXCEPTION.getMsg());
+    }
+
+
+    //处理hibernate-validator框架参数校验抛出的异常
+    @ExceptionHandler(BindException.class)
+    public ResponseVo<String> methodArgumentNotValidException(BindException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        List<String> msgList = new ArrayList<>();
+        //将错误信息放在msgList
+        bindingResult.getFieldErrors().stream().forEach(item->msgList.add(item.getDefaultMessage()));
+        //拼接错误信息
+        StringBuilder msg= new StringBuilder();
+        for (String s : msgList) {
+            msg.append(s).append(",");
+        }
+        return ResponseVo.backException(ExceptionEnum.SYS_EXCEPTION.getCode(), msg.toString(), ExceptionEnum.SYS_EXCEPTION.getMsg());
     }
 
 }
