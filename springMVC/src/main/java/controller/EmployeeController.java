@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/emp")
-@CrossOrigin
+@CrossOrigin  //解决这个controller下接口的跨域问题。nginx反向代理也可解决。二选一
 @Api(tags = "员工管理")
 public class EmployeeController {
     @Autowired
