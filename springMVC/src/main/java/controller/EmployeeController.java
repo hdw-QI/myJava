@@ -2,6 +2,9 @@ package controller;
 
 import domain.dto.EmployeeDto;
 import domain.entity.Employee;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/emp")
+@CrossOrigin
+@Api(tags = "员工管理")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
@@ -98,9 +103,10 @@ public class EmployeeController {
     }
 
     //3.6、restful风格（url中的参数用pathVariable获取）
+    @ApiOperation(value = "根据id获取员工")
     @GetMapping("/getEmp/{id}")
     @ResponseBody
-    public Employee getEmpById(@PathVariable Long id) {
+    public Employee getEmpById(@ApiParam(name = "id",value = "员工id",required = true,type = "long") @PathVariable Long id) {
         return employeeService.getById(id);
     }
 

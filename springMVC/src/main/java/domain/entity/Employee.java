@@ -1,23 +1,29 @@
 package domain.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 
  * @TableName employee
  */
 @Data
+@ApiModel("员工实体")
 public class Employee implements Serializable {
     /**
      * 
      */
+    @ApiModelProperty("id")
     private Integer id;
 
     /**
      * 
      */
+    @ApiModelProperty("员工姓名")
     private String name;
 
     /**

@@ -88,5 +88,12 @@
     <!--自定义异常解析器（通过ControllerAdvice、ExceptionHandler注解）-->
     <context:component-scan base-package="exceptionResolver"/>
 
+    <!--swagger2-->
+    <!--重要！配置swagger资源不被拦截-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+    <!--重要！将你的SwaggerConfig配置类注入-->
+    <bean id="swaggerConfig" class="swagger2.Swagger2Configuration"/>
+
 
 </beans>
