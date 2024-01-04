@@ -105,5 +105,15 @@
     <!--重要！将你的SwaggerConfig配置类注入-->
     <bean id="swaggerConfig" class="swagger2.Swagger2Configuration"/>
 
+    <!--springmvc自带的全局跨域配置-->
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origin-patterns="*"
+                     allowed-methods="*"
+                     allow-credentials="true"
+                     allowed-headers="*"
+        />
+    </mvc:cors>
+
 
 </beans>
