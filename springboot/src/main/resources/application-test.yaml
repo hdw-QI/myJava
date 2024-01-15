@@ -1,0 +1,7 @@
+#测试环境
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/train?characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 2001zhaohu0629.
