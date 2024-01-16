@@ -12,7 +12,11 @@
     <artifactId>springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot</name>
-    <!--打包方式-->
+    <!--打包方式
+        jar：打成jar包（默认）
+        war：打成war包
+        pom：表示当前工程有子工程
+    -->
     <packaging>jar</packaging>
     <description>springboot</description>
     <properties>
