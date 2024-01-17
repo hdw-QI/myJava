@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -52,5 +53,18 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 //允许那些ip进行跨域
                 .allowedOrigins("*");
+    }
+
+    /**
+     *资源处理（相当于nginx的反向代理）
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                //前端的访问路径
+                .addResourceHandler("/upload/*")
+                //资源
+                .addResourceLocations("/image/upload/*");
     }
 }
