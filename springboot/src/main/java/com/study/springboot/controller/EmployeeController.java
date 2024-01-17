@@ -17,8 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+
     @GetMapping("getById")
     public Employee getById(Integer id) {
         return employeeService.getById(id);
+    }
+
+    @GetMapping("removeById")
+    public void removeById(Integer id) {
+
     }
 }

@@ -14,4 +14,6 @@ public interface EmployeeService {
      * @return
      */
     Employee getById(Integer id);
+
+    void removeById(Integer id);
 }
