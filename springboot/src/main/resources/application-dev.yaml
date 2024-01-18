@@ -80,3 +80,8 @@ mybatis:
   mapper-locations: classpath*:dao/*.xml
   #指定别名
   type-aliases-package: com.study.springboot.domain
+#mybatis-plus整合
+mybatis-plus:
+  configuration:
+    #日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

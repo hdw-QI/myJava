@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author 胡代伟
  * @description DepartmentController
@@ -20,5 +22,15 @@ public class DepartmentController {
     @GetMapping("/getById")
     public Department getById(Integer id) {
         return departmentService.getById(id);
+    }
+
+    @GetMapping("/getPage")
+    public List<Department> getPage(Integer pageNo, Integer pageSize, String deptName) {
+        return departmentService.getPage(pageNo, pageSize, deptName);
+    }
+
+    @GetMapping("/updateByCondition")
+    public boolean updateByCondition(String deptName, Integer deptNumber) {
+        return departmentService.updateByCondition(deptName, deptNumber);
     }
 }
