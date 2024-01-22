@@ -26,7 +26,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     @Override
     public List<Department> getPage(Integer pageNo, Integer pageSize, String deptName) {
         Page<Department> departmentPage = new Page<>(pageNo, pageSize);
-        LambdaQueryWrapper<Department> departmentLambdaQueryWrapper = new LambdaQueryWrapper<Department>().eq(StringUtils.isEmpty(deptName), Department::getName, deptName);
+        LambdaQueryWrapper<Department> departmentLambdaQueryWrapper = new LambdaQueryWrapper<Department>().like(!StringUtils.isEmpty(deptName), Department::getName, deptName);
         page(departmentPage, departmentLambdaQueryWrapper);
         return departmentPage.getRecords();
     }
@@ -80,7 +80,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     @Override
     public List<Department> getByLikeNameAndNumber(String name, Integer number) {
         LambdaQueryWrapper<Department> departmentLambdaQueryWrapper = Wrappers.lambdaQuery(Department.class);
-        departmentLambdaQueryWrapper.like(Department::getName, name).like(Department::getNumber, number);
+        departmentLambdaQueryWrapper.like(Department::getName, name).or().like(Department::getNumber, number);
         return list(departmentLambdaQueryWrapper);
     }
 }
