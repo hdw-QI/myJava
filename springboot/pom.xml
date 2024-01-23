@@ -52,6 +52,31 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--配置swagger2
+            /swagger-ui.html 访问
+            -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <!--配置swagger的美化版
+        通过swagger-ui.html来访问
+        -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <!--美化工具,访问方式是: /doc.html-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+
         <!--整合mybatis-->
         <!--1、数据库驱动-->
         <dependency>
