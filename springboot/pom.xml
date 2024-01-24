@@ -102,28 +102,24 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.4.2</version>
         </dependency>
+
+        <!--redis-->
+        <!--redis连接池-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <!--redis的启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <!--<plugins>
-            &lt;!&ndash;
-            spring-boot-maven-plugin:为了让打包的时候将项目所依赖的依赖也一起打包，这样才可以通过java -jar 文件名 命令启动项目
-            &ndash;&gt;
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>-->
 
-        <!--编译打包过虑配置-->
+        <!--begin-编译打包过虑配置-->
         <!--是mybatis的映射文件可以放在src下-->
         <resources>
             <resource>
@@ -169,11 +165,11 @@
                     <useDefaultDelimiters>true</useDefaultDelimiters>
                 </configuration>
             </plugin>
+            <!--end-编译打包过虑配置-->
 
 
 
-
-            <!--docker自动化部署。要先运行package命令，再自动化部署-->
+            <!--begin  docker自动化部署。要先运行package命令，再自动化部署-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -227,7 +223,7 @@
                     <execution>
                         <phase>package</phase>
                         <configuration>
-                            <!--对应自己的目录-->
+                            <!--todir：对应自己的目录-->
                             <target>
                                 <copy todir="src/main/docker" file="target/${project.artifactId}-${project.version}.${project.packaging}"></copy>
                             </target>
@@ -238,7 +234,7 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <!--end  docker自动化部署。要先运行package命令，再自动化部署-->
         </plugins>
     </build>
 

@@ -51,5 +51,14 @@ public class Employee implements Serializable {
      */
     private String photo;
 
+    /*
+    //LocalDateTime 类型需要指定序列化类、反序列化类
+    //指定序列化类
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    //指定反序列化类
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime localTime;
+    */
+
     private static final long serialVersionUID = 1L;
 }

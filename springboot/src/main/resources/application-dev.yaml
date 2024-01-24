@@ -65,8 +65,20 @@ spring:
         url-pattern: /*
         # 忽略过滤的格式
         exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico
+  #redis配置
+  redis:
+    #redis连接池配置
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+    #redis连接配置
+    host: 124.71.115.177
+    database: 0
+    password: 2001zhaohu0629.
+    port: 6379
 server:
-  port: 8888
+  port: 8080
 #mybatis整合
 mybatis:
   configuration:

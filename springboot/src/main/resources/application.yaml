@@ -1,4 +1,4 @@
 #指定什么环境下的配置文件
 spring:
   profiles:
-    active: pro
+    active: dev
