@@ -98,5 +98,11 @@ class ZookeeperApplicationTests {
 
 
 
+    //测试轮询
+    @Test
+    public void testConsumer(){
+        // 修改节点的值
+        zkClient.writeData("/name/w","张三");
+    }
 
 }
